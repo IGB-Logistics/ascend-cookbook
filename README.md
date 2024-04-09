@@ -262,7 +262,8 @@ pip uninstall apex
 pip install --upgrade apex-0.1_ascend-cp38-cp38-linux_aarch64.whl
 ```
 
-2. 权重转换，默认已经下载完成了hf版本的qwen模型和代码：https://huggingface.co/Qwen/Qwen-7B-Chat/,并保存在`./model_from_hf/Qwen-7B-Chat/`目录下，生成符合megatron需求的模型文件，存储在`./model_weights/Qwen-7B-Chat-v0.1-tp8-pp1/`目录下
+2. 权重转换，默认已经下载完成了hf版本的qwen模型和代码：https://huggingface.co/Qwen/Qwen-7B-Chat/。 
+保存在`./model_from_hf/Qwen-7B-Chat/`目录下，生成符合megatron需求的模型文件，存储在`./model_weights/Qwen-7B-Chat-v0.1-tp8-pp1/`目录下
 
 ```shell
 python tools/checkpoint/convert_ckpt.py \
