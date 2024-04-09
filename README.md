@@ -314,7 +314,7 @@ CKPT_LOAD_DIR="./model_weights/Qwen-7B-Chat-v0.1-tp8-pp1/"
    nohup bash examples/qwen/pretrain_qwen_7b_ptd.sh &
    ```
 
-   ![npu_train](npu_train.png)
+   ![npu_train](assets/npu_train.png)
 
 6. 测试推理：
 
