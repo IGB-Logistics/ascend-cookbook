@@ -308,9 +308,22 @@ CKPT_LOAD_DIR="./model_weights/Qwen-7B-Chat-v0.1-tp8-pp1/"
 ```shell
 nohup bash examples/qwen/pretrain_qwen_7b_ptd.sh &
 ```
-
-![npu_train](assets/npu_train.png)
-
+1000 iteration 运行日志:
+```shell
+[before the start of training step] datetime: 2024-04-09 09:51:29 
+ iteration        3/    1000 | consumed samples:          192 | elapsed time per iteration (ms): 38390.3 | learning rate: 2.500E-07 | global batch size:    64 | lm loss: 1.303225E+00 | loss scale: 1.0 | grad norm: 9.847 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration        4/    1000 | consumed samples:          256 | elapsed time per iteration (ms): 33848.3 | learning rate: 3.750E-07 | global batch size:    64 | lm loss: 1.299287E+00 | loss scale: 1.0 | grad norm: 9.684 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration        5/    1000 | consumed samples:          320 | elapsed time per iteration (ms): 33854.5 | learning rate: 5.000E-07 | global batch size:    64 | lm loss: 1.305196E+00 | loss scale: 1.0 | grad norm: 9.552 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration        6/    1000 | consumed samples:          384 | elapsed time per iteration (ms): 33844.8 | learning rate: 6.250E-07 | global batch size:    64 | lm loss: 1.307709E+00 | loss scale: 1.0 | grad norm: 9.468 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration        7/    1000 | consumed samples:          448 | elapsed time per iteration (ms): 33852.0 | learning rate: 7.500E-07 | global batch size:    64 | lm loss: 1.288516E+00 | loss scale: 1.0 | grad norm: 8.489 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ ......
+ iteration      998/    1000 | consumed samples:        63872 | elapsed time per iteration (ms): 33783.9 | learning rate: 1.250E-07 | global batch size:    64 | lm loss: 4.118370E-01 | loss scale: 1.0 | grad norm: 0.507 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration      999/    1000 | consumed samples:        63936 | elapsed time per iteration (ms): 33782.1 | learning rate: 1.250E-07 | global batch size:    64 | lm loss: 4.109960E-01 | loss scale: 1.0 | grad norm: 0.511 | number of skipped iterations:   0 | number of nan iterations:   0 |
+ iteration     1000/    1000 | consumed samples:        64000 | elapsed time per iteration (ms): 33851.3 | learning rate: 1.250E-07 | global batch size:    64 | lm loss: 4.110266E-01 | loss scale: 1.0 | grad norm: 0.486 | number of skipped iterations:   0 | number of nan iterations:   0 |
+[after training is done] datetime: 2024-04-09 19:15:44
+```
+每个批次64个样本，耗时平均33s
+`64*8192/33/8 = 1985 tokens/sec/GPU`
 7. 测试推理：
 
 ​	**TODO:**
