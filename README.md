@@ -205,7 +205,7 @@ conda 是一种python的虚拟环境工具，用于管理不同版本的python�
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
 ```
 
-2. 赋予权限并执行安装，一路点点点，最后执行一下 /
+2. 赋予权限并执行安装，一路点点点(s可以加速哦)，最后执行一下 /
 
 ```shell
 chmod +x Miniconda3-latest-Linux-aarch64.sh
@@ -308,6 +308,10 @@ CKPT_LOAD_DIR="./model_weights/Qwen-7B-Chat-v0.1-tp8-pp1/"
 ```shell
 nohup bash examples/qwen/pretrain_qwen_7b_ptd.sh &
 ```
+7.  experiment
+
+Ascend910B 训练
+
 1000 iteration 运行日志:
 ```shell
 [before the start of training step] datetime: 2024-04-09 09:51:29 
@@ -322,8 +326,56 @@ nohup bash examples/qwen/pretrain_qwen_7b_ptd.sh &
  iteration     1000/    1000 | consumed samples:        64000 | elapsed time per iteration (ms): 33851.3 | learning rate: 1.250E-07 | global batch size:    64 | lm loss: 4.110266E-01 | loss scale: 1.0 | grad norm: 0.486 | number of skipped iterations:   0 | number of nan iterations:   0 |
 [after training is done] datetime: 2024-04-09 19:15:44
 ```
+
 每个批次64个样本，耗时平均33s
+
 `64*8192/33/8 = 1985 tokens/sec/GPU`
+
+A100 训练
+
+813 iteration 运行日志:
+```shell
+  0%|          | 1/813 [00:22<5:08:35, 22.80s/it]
+                                                 
+{'loss': 1.375, 'grad_norm': 10.555740766623172, 'learning_rate': 0.0, 'epoch': 0.0}
+
+  0%|          | 1/813 [00:22<5:08:35, 22.80s/it]
+  0%|          | 2/813 [00:41<4:36:58, 20.49s/it]
+                                                 
+{'loss': 1.324, 'grad_norm': 7.800871126078351, 'learning_rate': 3.154648767857287e-06, 'epoch': 0.0}
+
+  0%|          | 2/813 [00:41<4:36:58, 20.49s/it]
+  0%|          | 3/813 [01:00<4:26:05, 19.71s/it]
+                                                 
+{'loss': 1.2192, 'grad_norm': 7.7563174978765295, 'learning_rate': 5e-06, 'epoch': 0.0}
+
+  0%|          | 3/813 [01:00<4:26:05, 19.71s/it]
+  0%|          | 4/813 [01:19<4:20:58, 19.36s/it]
+......
+{'loss': 1.1284, 'grad_norm': 4.067957539137507, 'learning_rate': 1e-05, 'epoch': 1.0}
+
+100%|█████████▉| 811/813 [4:14:14<00:37, 18.80s/it]
+100%|█████████▉| 812/813 [4:14:32<00:18, 18.81s/it]
+                                                   
+{'loss': 1.0758, 'grad_norm': 3.5920252682084466, 'learning_rate': 1e-05, 'epoch': 1.0}
+
+100%|█████████▉| 812/813 [4:14:32<00:18, 18.81s/it]
+100%|██████████| 813/813 [4:14:51<00:00, 18.80s/it]
+                                                   
+{'loss': 0.9288, 'grad_norm': 3.8637822492574876, 'learning_rate': 1e-05, 'epoch': 1.0}
+
+100%|██████████| 813/813 [4:14:51<00:00, 18.80s/it]
+                                                   
+{'train_runtime': 15291.7668, 'train_samples_per_second': 3.401, 'train_steps_per_second': 0.053, 'train_loss': 1.0951883426304967, 'epoch': 1.0}
+
+100%|██████████| 813/813 [4:14:51<00:00, 18.80s/it]
+100%|██████████| 813/813 [4:14:51<00:00, 18.81s/it]
+```
+
+每个批次64个样本，耗时平均18s
+
+`64*8192/18/8 = 3640 tokens/sec/GPU`
+
 7. 测试推理：
 
 ​	**TODO:**
